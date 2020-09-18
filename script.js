@@ -21,23 +21,30 @@ const allShows = getAllShows();
 //Populate show dropdown select
 const populateShowsDropdown = allShows.forEach((show) => {
   selectShow.innerHTML += `<option value="${show.id}">${show.name}</option>`;
-  if (show.image) {
-    results.innerHTML += `
-              <div class="show">
-                     <div class="show-preview">
-                     <h2>${show.name}</h2>
-                     <img src="${show.image.medium}">
-                     <a href="#">View all Episodes <i class="fas fa-chevron-right"></i></a>
-                   </div>
-                  
-                    <div class="show-info">
-                    <h6>${show.name}</h6>
-                    ${show.summary}</div>
-              </div>
-     `;
-  }
 });
 
+// Funtion at the start of page load
+function onloadShow() {
+  allShows.forEach((show) => {
+    if (show.image) {
+      results.innerHTML += `
+                  <div class="show">
+                         <div class="show-preview">
+                         <h2>${show.name}</h2>
+                         <img src="${show.image.medium}">
+                         <a href="#">View all Episodes <i class="fas fa-chevron-right"></i></a>
+                       </div>
+                      
+                        <div class="show-info">
+                        <h6>${show.name}</h6>
+                        ${show.summary}</div>
+                  </div>
+         `;
+    }
+  });
+}
+//Call page on load function
+onloadShow();
 selectShow.addEventListener("change", (show) => {
   if (show.target.value != "default") {
     // results.style.display = "none";
@@ -100,23 +107,26 @@ selectShow.addEventListener("change", (show) => {
             let dropValue = episode.target.value;
             console.log(dropValue);
             let count = 0;
-            const inputSelect = episodes.forEach((episode) => {
-              if (
-                episode.name.toLowerCase().includes(dropValue.toLowerCase())
-              ) {
-                results.innerHTML = `<div>
+            if (typeof episodes != "undefined") {
+              const inputSelect = episodes.forEach((episode) => {
+                if (
+                  episode.name.toLowerCase().includes(dropValue.toLowerCase())
+                ) {
+                  results.innerHTML = `<div>
                   <h2>${episode.name} - S${zeroPadded(
-                  episode.season
-                )}E${zeroPadded(episode.number)}</h2>
+                    episode.season
+                  )}E${zeroPadded(episode.number)}</h2>
                 <img src="${episode.image.medium}" >
                 ${episode.summary}
                  </div>
                     `;
-                count++;
-              } else {
-                results.style.display = "block";
-              }
-            });
+                  count++;
+                } else {
+                  results.style.display = "block";
+                }
+              });
+            }
+
             selected.innerHTML = `${count} out of ${episodes.length} episode(s) selected.`;
           });
         }
