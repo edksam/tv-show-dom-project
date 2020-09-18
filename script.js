@@ -19,7 +19,7 @@ let term = "";
 const allShows = getAllShows();
 
 //Populate show dropdown select
-const populateShowsDropdown = allShows.map((show) => {
+const populateShowsDropdown = allShows.forEach((show) => {
   selectShow.innerHTML += `<option value="${show.id}">${show.name}</option>`;
   if (show.image) {
     results.innerHTML += `
@@ -87,7 +87,6 @@ selectShow.addEventListener("change", (show) => {
 
           //Populate the dropdownbox
           const populateDropdown = episodes.forEach((episode) => {
-            // selectInput.innerHTML = "";
             let selectValue = `S${zeroPadded(episode.season)}E${zeroPadded(
               episode.number
             )} - ${episode.name}`;
@@ -97,23 +96,22 @@ selectShow.addEventListener("change", (show) => {
 
           //Add drop down Event Listener
           selectInput.addEventListener("change", (episode) => {
-            results.style.display = "";
+            results.style.display = "none";
             let dropValue = episode.target.value;
             console.log(dropValue);
             let count = 0;
             const inputSelect = episodes.forEach((episode) => {
               if (
-                episode.name.toLowerCase().includes(dropValue.toLowerCase()) ||
-                episode.image
+                episode.name.toLowerCase().includes(dropValue.toLowerCase())
               ) {
                 results.innerHTML = `<div>
-        <h2>${episode.name} - S${zeroPadded(episode.season)}E${zeroPadded(
-                  episode.number
-                )}</h2>
-      <img src="${episode.image.medium}" >
-      ${episode.summary}
-       </div>
-          `;
+                  <h2>${episode.name} - S${zeroPadded(
+                  episode.season
+                )}E${zeroPadded(episode.number)}</h2>
+                <img src="${episode.image.medium}" >
+                ${episode.summary}
+                 </div>
+                    `;
                 count++;
               } else {
                 results.style.display = "block";
