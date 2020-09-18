@@ -18,6 +18,9 @@
         <span id="selected"></span>
         <div>
           <h1>TV Episodes List</h1>
+          <select name="select-show" id="select-show" name="select-show">
+            <option value="default">--Please Select a Show--</option>
+          </select>
           <input type="text" id="search" placeholder="Type your Search" />
 
           <select
@@ -25,18 +28,17 @@
             id="select-episode"
             name="select-episode"
           >
-            <option>--Please select an Episode--</option>
+            <option value="">--Please select an Episode--</option>
           </select>
-          <div class="drop-display"></div>
 
-          <div class="results" id="results"></div>
+          <div class="results-heading" id="results"></div>
         </div>
       </div>
     </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
+    <script src="shows.js"></script>
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
     <footer>
